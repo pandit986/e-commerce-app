@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { selectCategories } from "../features/products/slices/productSlice";
 
 const CategoryGrid = styled.div`
   display: grid;
@@ -24,9 +26,18 @@ const CategoryCard = styled(Link)`
 `;
 
 export default function HomePage() {
+  const categories = useSelector(selectCategories);
+
   return (
     <div>
       <h2>Categories</h2>
+      <CategoryGrid>
+        {categories.map((category) => (
+          <CategoryCard key={category} to={`/products/${category}`}>
+            <h3>{category.toUpperCase()}</h3>
+          </CategoryCard>
+        ))}
+      </CategoryGrid>
     </div>
   );
 }
