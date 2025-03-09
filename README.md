@@ -3,4 +3,6 @@
 ## 🛠️ Installation
 1. Clone repository:
 ```bash
-git clone https://github.com/<your-username>/ecommerce-platform.git
+git clone https://github.com/pandit986/e-commerce-app.git
+
+
