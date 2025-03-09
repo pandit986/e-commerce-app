@@ -1,43 +1,70 @@
+// src/pages/HomePage.js
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { selectCategories } from "./action/productSlice";
+import {
+  fetchCategories,
+  selectCategories,
+  selectLoading,
+} from "./action/homeSlice";
+import CategoryCard from "./component/CategoryCard";
 
-const CategoryGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
-  padding: 20px;
+export default function HomePage() {
+  const dispatch = useDispatch();
+  const categories = useSelector(selectCategories);
+  const loading = useSelector(selectLoading);
+
+  useEffect(() => {
+    dispatch(fetchCategories());
+  }, [dispatch]);
+
+  if (loading) return <LoadingMessage>Loading categories...</LoadingMessage>;
+
+  console.log(categories, "categories");
+  return (
+    <Container>
+      <Heading>Explore Categories</Heading>
+      <Grid>
+        {categories.map(({ name, count, thumbnail }) => (
+          <CategoryCard
+            key={name}
+            category={name}
+            count={count}
+            thumbnail={thumbnail}
+          />
+        ))}
+      </Grid>
+    </Container>
+  );
+}
+
+const Container = styled.div`
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
 `;
 
-const CategoryCard = styled(Link)`
-  background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 20px;
+const Heading = styled.h1`
+  font-size: 2.5rem;
   text-align: center;
-  text-decoration: none;
-  color: #333;
-  transition: transform 0.2s;
+  margin-bottom: 3rem;
+  color: #2d3748;
+`;
 
-  &:hover {
-    transform: translateY(-5px);
+const Grid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 1rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
   }
 `;
 
-export default function HomePage() {
-  const categories = useSelector(selectCategories);
-
-  return (
-    <div>
-      <h2>Categories</h2>
-      <CategoryGrid>
-        {categories.map((category) => (
-          <CategoryCard key={category} to={`/products/${category}`}>
-            <h3>{category.toUpperCase()}</h3>
-          </CategoryCard>
-        ))}
-      </CategoryGrid>
-    </div>
-  );
-}
+const LoadingMessage = styled.div`
+  text-align: center;
+  padding: 4rem;
+  font-size: 1.2rem;
+  color: #718096;
+`;
