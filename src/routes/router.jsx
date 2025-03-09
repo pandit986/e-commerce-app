@@ -8,17 +8,16 @@ import CartPage from "../modules/card-page/CartPage";
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <MainLayout />, // With header/footer
+    element: <MainLayout />, 
     children: [
       { index: true, element: <HomePage /> },
       { path: "products/:category", element: <ProductsPage /> },
     ],
   },
   {
-    element: <MinimalLayout />, // Without header/footer
+    element: <MinimalLayout />, 
     children: [
       { path: "/cart", element: <CartPage /> },
-      // Add other minimal pages here
     ],
   },
 ]);
