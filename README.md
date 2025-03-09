@@ -40,10 +40,31 @@ npm run dev
 - ├── api/                      # API configuration
 - ├── assets/                   # Static assets
 - ├── components/               # Reusable components
-- - │   └── ui/                  # Reusable UI components
+- - │   └── ui/                 # Reusable UI components
 - ├── components/layouts/       # Application layouts
 - ├── modules/                  # Route components
 - ├── routes/                   # Routing configuration
 - └── store/                    # Redux store configuration
 
+# 🎨 Design Decisions
+1. State Management
+- Redux Toolkit chosen for:
+- - Centralized cart management
+- - Search functionality state
+- - Easy debugging with Redux DevTools
 
+2. Styling Approach
+- styled-components provides:
+- - Component-scoped styles
+- - Better CSS maintainability
+
+3. Performance Implemented:
+- Lazy loading for images
+- Route-based code splitting
+- Debounced search inputs
+
+4. Folder Structure
+- Feature-based organization:
+- - Clear separation of concerns
+- - Easy feature scalability
+- - Reusable component 
