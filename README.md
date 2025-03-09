@@ -17,14 +17,14 @@ npm run dev
 ```
 
 ## A e-commerce platform built with:
-⚛️ React + Vite
-🛣️ React Router v6
-🧺 Redux Toolkit for state management
-💅 styled-components for styling
-📦 react-icons for icons
-📡 DummyJSON API for product data
-📦 LocalStorage integration for cart persistence
-🔔 Toast Notifications
+- ⚛️ React + Vite
+- 🛣️ React Router v6
+- 🧺 Redux Toolkit for state management
+- 💅 styled-components for styling
+- 📦 react-icons for icons
+- 📡 DummyJSON API for product data
+- 📦 LocalStorage integration for cart persistence
+- 🔔 Toast Notifications
 
 ## 🚀 Features
 
@@ -36,14 +36,14 @@ npm run dev
 - **Notifications:** Toast messages for actions and alerts
 
 ## 📁 Project Structure
-src/
-├── api/                      # API configuration
-├── assets/                   # Static assets
-├── components/               # Reusable components
-│   └── ui/                  # Reusable UI components
-├── components/layouts/       # Application layouts
-├── modules/                  # Route components
-├── routes/                   # Routing configuration
-└── store/                    # Redux store configuration
+- src/
+- ├── api/                      # API configuration
+- ├── assets/                   # Static assets
+- ├── components/               # Reusable components
+- - │   └── ui/                  # Reusable UI components
+- ├── components/layouts/       # Application layouts
+- ├── modules/                  # Route components
+- ├── routes/                   # Routing configuration
+- └── store/                    # Redux store configuration
 
 
