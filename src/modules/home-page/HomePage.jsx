@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { selectCategories } from "../features/products/slices/productSlice";
+import { selectCategories } from "./action/productSlice";
 
 const CategoryGrid = styled.div`
   display: grid;

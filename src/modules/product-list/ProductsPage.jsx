@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import { selectProducts } from "../features/products/slices/productSlice";
+import { selectProducts } from "../home-page/action/productSlice";
 
 const ProductGrid = styled.div`
   display: grid;
