@@ -8,6 +8,7 @@ import {
   selectLoading,
 } from "./action/homeSlice";
 import CategoryCard from "./component/CategoryCard";
+import Loader from "../../components/ui/Loader";
 
 export default function HomePage() {
   const dispatch = useDispatch();
@@ -18,9 +19,8 @@ export default function HomePage() {
     dispatch(fetchCategories());
   }, [dispatch]);
 
-  if (loading) return <LoadingMessage>Loading categories...</LoadingMessage>;
+  // if (loading) return ;
 
-  console.log(categories, "categories");
   return (
     <Container>
       <Heading>Explore Categories</Heading>
@@ -34,6 +34,7 @@ export default function HomePage() {
           />
         ))}
       </Grid>
+      {loading && <Loader></Loader>}
     </Container>
   );
 }

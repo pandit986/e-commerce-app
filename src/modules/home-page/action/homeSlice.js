@@ -1,11 +1,13 @@
 // src/store/categorySlice.js
 import { createSlice } from "@reduxjs/toolkit";
-import { getCategories } from "./homeService";
+import { getCategories, searchProducts } from "./homeService";
 
 const categorySlice = createSlice({
     name: "category",
     initialState: {
         loading: false,
+        query: '',
+        suggestions: [],
         categories: [],
     },
     reducers: {
@@ -13,10 +15,17 @@ const categorySlice = createSlice({
             const { key, value } = action.payload;
             state[key] = value;
         },
+        setQuery: (state, action) => {
+            state.query = action.payload;
+        },
+        clearSuggestions: (state) => {
+            state.suggestions = [];
+            state.query = '';
+        },
     }
 });
 
-export const { setState } = categorySlice.actions;
+export const { setState, setQuery, clearSuggestions } = categorySlice.actions;
 
 export const fetchCategories = () => {
     return async (dispatch) => {
@@ -47,10 +56,27 @@ export const fetchCategories = () => {
             dispatch(setState({ key: "loading", value: false }));
 
         } catch (err) {
+            console.log(err)
             dispatch(setState({ key: "loading", value: false }));
         }
     };
 };
+
+export const fetchSuggestions = (query) => {
+    return async (dispatch) => {
+        try {
+            // dispatch(setState({ key: 'loading', value: true }));
+            const response = await searchProducts(query);
+            dispatch(setState({ key: 'suggestions', value: response.products }));
+            // dispatch(setState({ key: 'loading', value: false }));
+        } catch (error) {
+            dispatch(setState({ key: 'error', value: error.message }));
+            // dispatch(setState({ key: 'loading', value: false }));
+        }
+    };
+};
+
+
 export const selectCategories = (state) => state.category.categories;
 export const selectLoading = (state) => state.category.loading;
 

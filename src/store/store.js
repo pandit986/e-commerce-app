@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
-import productReducer from '../modules/home-page/action/productSlice'
+import productReducer from '../modules/product-list/action/productSlice'
 import categoryReducer from '../modules/home-page/action/homeSlice'
 
 export const store = configureStore({
@@ -8,3 +8,8 @@ export const store = configureStore({
         category: categoryReducer
     },
 })
+
+store.subscribe(() => {
+    const state = store.getState();
+    localStorage.setItem('cart', JSON.stringify(state.products.cart));
+});

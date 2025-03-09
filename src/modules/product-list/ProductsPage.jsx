@@ -1,40 +1,56 @@
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { selectProducts } from "../home-page/action/productSlice";
+import ProductCard from "./component/ProductCard";
+import { fetchProducts, selectProducts, setState } from "./action/productSlice";
+import Loader from "../../components/ui/Loader";
 
-const ProductGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
-  padding: 20px;
+const Container = styled.div`
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
 `;
 
-const ProductCard = styled.div`
-  background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 20px;
+const Grid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, auto));
+  gap: 2rem;
+  margin-top: 2rem;
+  justify-content: center;
+`;
+
+const Title = styled.h1`
+  font-size: 2rem;
+  color: #2d3748;
+  text-transform: capitalize;
 `;
 
 export default function ProductsPage() {
   const { category } = useParams();
+  const dispatch = useDispatch();
   const products = useSelector(selectProducts);
-  const categoryProducts = products.filter(
-    (product) => product.category === category
-  );
+  const { loading } = useSelector((state) => state.products);
+
+  useEffect(() => {
+    dispatch(fetchProducts(category));
+
+    return () => {
+      dispatch(setState({ key: "items", value: [] }));
+    };
+  }, [dispatch, category]);
 
   return (
-    <div>
-      <h2>{category.toUpperCase()} Products</h2>
-      <ProductGrid>
-        {categoryProducts.map((product) => (
-          <ProductCard key={product.id}>
-            <h3>{product.name}</h3>
-            <p>${product.price}</p>
-          </ProductCard>
+    <Container>
+      <Title>
+        {!isNaN(category) ? "Search Results" : `${category} Products`}
+      </Title>
+      <Grid>
+        {products?.map((product) => (
+          <ProductCard key={product.id} product={product} />
         ))}
-      </ProductGrid>
-    </div>
+      </Grid>
+      {loading && <Loader></Loader>}
+    </Container>
   );
 }

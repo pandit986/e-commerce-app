@@ -1,10 +1,14 @@
 import { useState } from "react";
 import { FaShoppingBag, FaSearch, FaBars } from "react-icons/fa";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
+import { selectCartTotalItems } from "../../modules/product-list/action/productSlice";
+import { Link } from "react-router-dom";
+import SearchBar from "./SearchBar";
 
-export default function Header({ cartItemCount }) {
+export default function Header() {
   const [isSearchVisible, setIsSearchVisible] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
+  const cartItems = useSelector(selectCartTotalItems);
 
   const toggleSearch = () => {
     setIsSearchVisible(!isSearchVisible);
@@ -13,31 +17,19 @@ export default function Header({ cartItemCount }) {
   return (
     <HeaderContainer>
       <Content>
-        <Logo>
+        <Logo to="/">
           <span>E</span>Commerce
         </Logo>
 
         <SearchContainer>
-          <FaSearch
-            style={{
-              position: "absolute",
-              left: "12px",
-              top: "50%",
-              transform: "translateY(-50%)",
-              color: "#a0aec0",
-            }}
-          />
-          <SearchInput
-            type="text"
-            placeholder="Search products..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
+          <SearchBar />
         </SearchContainer>
 
         <CartButton>
-          <FaShoppingBag size={20} />
-          <span>{cartItemCount}</span>
+          <Link to="/cart">
+            <FaShoppingBag size={20} />
+            {!!cartItems && <span>{cartItems}</span>}
+          </Link>
         </CartButton>
 
         <HamburgerButton onClick={toggleSearch}>
@@ -46,12 +38,7 @@ export default function Header({ cartItemCount }) {
       </Content>
 
       <MobileSearch $isOpen={isSearchVisible}>
-        <SearchInput
-          type="text"
-          placeholder="Search products..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-        />
+        <SearchBar />
       </MobileSearch>
     </HeaderContainer>
   );
@@ -80,11 +67,19 @@ const Content = styled.div`
   }
 `;
 
-const Logo = styled.h1`
+const Logo = styled(Link)`
   font-size: 1.8rem;
   color: #2d3748;
   font-weight: 700;
   margin: 0;
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity 0.2s;
+
+  &:hover {
+    opacity: 0.8;
+  }
+
   span {
     color: #4299e1;
   }
