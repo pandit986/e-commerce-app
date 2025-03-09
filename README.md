@@ -34,6 +34,7 @@ npm run dev
 - **Search Functionality:** Auto-suggestions for product search
 - **Product List Page:** Detailed listings with interactive UI
 - **Notifications:** Toast messages for actions and alerts
+- **Error Boundaries**: Gracefully handle runtime errors and display fallback UIs to improve user experience
 
 ## 📁 Project Structure
 - src/
@@ -67,4 +68,7 @@ npm run dev
 - Feature-based organization:
 - - Clear separation of concerns
 - - Easy feature scalability
-- - Reusable component 
+- - Reusable component
+ 
+5. Error Handling
+- Error Boundaries: Integrated error boundary components to catch and gracefully handle unexpected errors in the UI, ensuring a better user experience even when parts of the application fail.
