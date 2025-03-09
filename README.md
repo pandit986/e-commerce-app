@@ -1,6 +1,8 @@
 # E-Commerce Project
 
 ## 🛠️ Installation
+- Follow these steps to set up the project locally:
+
 1. Clone repository:
 ```bash
 git clone https://github.com/pandit986/e-commerce-app.git
@@ -26,20 +28,22 @@ npm run dev
 
 ## 🚀 Features
 
-- Modern responsive design
-- Product catalog with categories
-- Shopping cart with persistence
-- Search with auto-suggestions
-- Product List Page
+- **Responsive Design:** Modern and mobile-friendly layout
+- **Product Catalog:** Browse products by category
+- **Shopping Cart:** Persistent cart using LocalStorage
+- **Search Functionality:** Auto-suggestions for product search
+- **Product List Page:** Detailed listings with interactive UI
+- **Notifications:** Toast messages for actions and alerts
 
 ## 📁 Project Structure
 src/
 ├── api/                      # API configuration
 ├── assets/                   # Static assets
 ├── components/               # Reusable components
-├── components/ui             # Reusable UI components
+│   └── ui/                  # Reusable UI components
 ├── components/layouts/       # Application layouts
 ├── modules/                  # Route components
 ├── routes/                   # Routing configuration
-├── store/                    # Redux store
+└── store/                    # Redux store configuration
+
 
