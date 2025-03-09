@@ -10,6 +10,72 @@ import {
 import EmptyCart from "./component/EmptyCart";
 import { toast } from "react-toastify";
 
+export default function CartPage() {
+  const dispatch = useDispatch();
+  const cartItems = useSelector(selectCartItems);
+  const total = useSelector(selectCartTotal);
+
+  const handleQuantityChange = (itemId, amount) => {
+    const newQuantity = Math.max(
+      1,
+      cartItems.find((item) => item.id === itemId).quantity + amount
+    );
+    dispatch(updateQuantity({ id: itemId, quantity: newQuantity }));
+  };
+
+  const handleRemove = (itemId) => {
+    dispatch(removeFromCart(itemId));
+  };
+
+  const handleCheckout = (e) => {
+    e.preventDefault();
+    toast.success("Order success!");
+  };
+
+  if (cartItems.length === 0) return <EmptyCart />;
+
+  return (
+    <Container>
+      <CartHeader>
+        <Title>Shopping Cart</Title>
+        <ContinueShopping to="/">Continue Shopping</ContinueShopping>
+      </CartHeader>
+      <CartGrid>
+        {cartItems.map((item) => (
+          <CartItem key={item.id}>
+            <ItemImage src={item.thumbnail} alt={item.title} />
+            <ItemDetails>
+              <ItemTitle>{item.title}</ItemTitle>
+              <ItemPrice>${item.price.toFixed(2)}</ItemPrice>
+              <QuantityControls>
+                <ControlButton
+                  onClick={() => handleQuantityChange(item.id, -1)}
+                >
+                  -
+                </ControlButton>
+                <span>{item.quantity}</span>
+                <ControlButton onClick={() => handleQuantityChange(item.id, 1)}>
+                  +
+                </ControlButton>
+              </QuantityControls>
+              <RemoveButton onClick={() => handleRemove(item.id)}>
+                Remove
+              </RemoveButton>
+            </ItemDetails>
+            <ItemPrice>${(item.price * item.quantity).toFixed(2)}</ItemPrice>
+          </CartItem>
+        ))}
+      </CartGrid>
+      <SummarySection>
+        <Total>Total: ${total.toFixed(2)}</Total>
+        <CheckoutButton onClick={handleCheckout}>
+          Proceed to Checkout
+        </CheckoutButton>
+      </SummarySection>
+    </Container>
+  );
+}
+
 const Container = styled.div`
   max-width: 100%;
   margin: 0 auto;
@@ -173,69 +239,3 @@ const CheckoutButton = styled(Link)`
     transform: translateY(-2px);
   }
 `;
-
-export default function CartPage() {
-  const dispatch = useDispatch();
-  const cartItems = useSelector(selectCartItems);
-  const total = useSelector(selectCartTotal);
-
-  const handleQuantityChange = (itemId, amount) => {
-    const newQuantity = Math.max(
-      1,
-      cartItems.find((item) => item.id === itemId).quantity + amount
-    );
-    dispatch(updateQuantity({ id: itemId, quantity: newQuantity }));
-  };
-
-  const handleRemove = (itemId) => {
-    dispatch(removeFromCart(itemId));
-  };
-
-  const handleCheckout = (e) => {
-    e.preventDefault();
-    toast.success("Order success!");
-  };
-
-  if (cartItems.length === 0) return <EmptyCart />;
-
-  return (
-    <Container>
-      <CartHeader>
-        <Title>Shopping Cart</Title>
-        <ContinueShopping to="/">Continue Shopping</ContinueShopping>
-      </CartHeader>
-      <CartGrid>
-        {cartItems.map((item) => (
-          <CartItem key={item.id}>
-            <ItemImage src={item.thumbnail} alt={item.title} />
-            <ItemDetails>
-              <ItemTitle>{item.title}</ItemTitle>
-              <ItemPrice>${item.price.toFixed(2)}</ItemPrice>
-              <QuantityControls>
-                <ControlButton
-                  onClick={() => handleQuantityChange(item.id, -1)}
-                >
-                  -
-                </ControlButton>
-                <span>{item.quantity}</span>
-                <ControlButton onClick={() => handleQuantityChange(item.id, 1)}>
-                  +
-                </ControlButton>
-              </QuantityControls>
-              <RemoveButton onClick={() => handleRemove(item.id)}>
-                Remove
-              </RemoveButton>
-            </ItemDetails>
-            <ItemPrice>${(item.price * item.quantity).toFixed(2)}</ItemPrice>
-          </CartItem>
-        ))}
-      </CartGrid>
-      <SummarySection>
-        <Total>Total: ${total.toFixed(2)}</Total>
-        <CheckoutButton onClick={handleCheckout}>
-          Proceed to Checkout
-        </CheckoutButton>
-      </SummarySection>
-    </Container>
-  );
-}

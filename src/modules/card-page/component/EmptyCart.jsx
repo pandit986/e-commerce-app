@@ -2,6 +2,20 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import emptyCartImage from "../../../assets/empty-cart.png";
 
+export default function EmptyCart() {
+  return (
+    <EmptyCartContainer>
+      <EmptyCartImage src={emptyCartImage} alt="Empty Cart" />
+      <Title>Your Cart is Empty</Title>
+      <Description>
+        It looks like you haven’t added any items to your cart yet. Browse our
+        collection and find something you love.
+      </Description>
+      <StyledLink to="/">Continue Shopping</StyledLink>
+    </EmptyCartContainer>
+  );
+}
+
 const EmptyCartContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -47,17 +61,3 @@ const StyledLink = styled(Link)`
     background: #3182ce;
   }
 `;
-
-export default function EmptyCart() {
-  return (
-    <EmptyCartContainer>
-      <EmptyCartImage src={emptyCartImage} alt="Empty Cart" />
-      <Title>Your Cart is Empty</Title>
-      <Description>
-        It looks like you haven’t added any items to your cart yet. Browse our
-        collection and find something you love.
-      </Description>
-      <StyledLink to="/">Continue Shopping</StyledLink>
-    </EmptyCartContainer>
-  );
-}

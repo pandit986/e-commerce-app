@@ -6,26 +6,6 @@ import ProductCard from "./component/ProductCard";
 import { fetchProducts, selectProducts, setState } from "./action/productSlice";
 import Loader from "../../components/ui/Loader";
 
-const Container = styled.div`
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 2rem;
-`;
-
-const Grid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, auto));
-  gap: 2rem;
-  margin-top: 2rem;
-  justify-content: center;
-`;
-
-const Title = styled.h1`
-  font-size: 2rem;
-  color: #2d3748;
-  text-transform: capitalize;
-`;
-
 export default function ProductsPage() {
   const { category } = useParams();
   const dispatch = useDispatch();
@@ -54,3 +34,23 @@ export default function ProductsPage() {
     </Container>
   );
 }
+
+const Container = styled.div`
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+`;
+
+const Grid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, auto));
+  gap: 2rem;
+  margin-top: 2rem;
+  justify-content: center;
+`;
+
+const Title = styled.h1`
+  font-size: 2rem;
+  color: #2d3748;
+  text-transform: capitalize;
+`;

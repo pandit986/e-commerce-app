@@ -2,6 +2,20 @@
 import React from "react";
 import styled from "styled-components";
 
+const Loader = () => {
+  return (
+    <FullScreenLoader>
+      <LoaderAnimation>
+        {Array.from({ length: 4 }).map((_, index) => (
+          <Circle key={index} $index={index} />
+        ))}
+      </LoaderAnimation>
+    </FullScreenLoader>
+  );
+};
+
+export default Loader;
+
 const FullScreenLoader = styled.div`
   position: fixed;
   top: 0;
@@ -11,10 +25,10 @@ const FullScreenLoader = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgba(255, 255, 255, 0.7); 
-  backdrop-filter: blur(4px); 
-  -webkit-backdrop-filter: blur(4px); 
-  z-index: 9999; 
+  background-color: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 9999;
 `;
 
 const LoaderAnimation = styled.div`
@@ -61,17 +75,3 @@ const Circle = styled.div`
   left: ${({ $index }) => ($index === 0 || $index === 2 ? "0" : "auto")};
   right: ${({ $index }) => ($index === 1 || $index === 3 ? "0" : "auto")};
 `;
-
-const Loader = () => {
-  return (
-    <FullScreenLoader>
-      <LoaderAnimation>
-        {Array.from({ length: 4 }).map((_, index) => (
-          <Circle key={index} $index={index} />
-        ))}
-      </LoaderAnimation>
-    </FullScreenLoader>
-  );
-};
-
-export default Loader;

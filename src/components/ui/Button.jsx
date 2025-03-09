@@ -1,5 +1,14 @@
 import styled from "styled-components";
 
+export default function Button({ icon, text, bgColor, onClick }) {
+  return (
+    <CartButton bgColor={bgColor} onClick={onClick}>
+      <IconContainer className="icon-container">{icon}</IconContainer>
+      <Text className="text">{text}</Text>
+    </CartButton>
+  );
+}
+
 const CartButton = styled.button`
   width: 140px;
   height: 40px;
@@ -64,13 +73,3 @@ const Text = styled.p`
   font-size: 1.04em;
   font-weight: 600;
 `;
-
-// Reusable Button Component with onClick
-export default function Button({ icon, text, bgColor, onClick }) {
-  return (
-    <CartButton bgColor={bgColor} onClick={onClick}>
-      <IconContainer className="icon-container">{icon}</IconContainer>
-      <Text className="text">{text}</Text>
-    </CartButton>
-  );
-}

@@ -9,6 +9,100 @@ import {
   setQuery,
 } from "../../modules/home-page/action/homeSlice";
 
+export default function SearchBar() {
+  
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { query, suggestions, loading, error } = useSelector(
+    (state) => state.category
+  );
+  const [isFocused, setIsFocused] = useState(false);
+  const containerRef = useRef(null);
+  const timeoutRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(event.target)
+      ) {
+        dispatch(clearSuggestions());
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (query.trim().length > 2) {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      timeoutRef.current = setTimeout(() => {
+        dispatch(fetchSuggestions(query));
+      }, 300);
+    } else {
+      // dispatch(clearSuggestions());
+    }
+
+    return () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
+  }, [query, dispatch]);
+
+  const handleSearchChange = (e) => {
+    dispatch(setQuery(e.target.value));
+  };
+
+  const handleClearSearch = () => {
+    dispatch(clearSuggestions());
+  };
+
+  const handleSuggestionClick = (product) => {
+    navigate(`/products/${product.id}`);
+    dispatch(clearSuggestions());
+  };
+
+  return (
+    <SearchContainer ref={containerRef}>
+      <SearchInputWrapper>
+        <Input
+          type="text"
+          placeholder="Search products..."
+          value={query}
+          onChange={handleSearchChange}
+          onFocus={() => setIsFocused(true)}
+        />
+        {query && (
+          <ClearButton onClick={handleClearSearch}>
+            <FaTimes size={14} />
+          </ClearButton>
+        )}
+        <SearchIcon size={18} />
+      </SearchInputWrapper>
+
+      {isFocused && query.length > 0 && (
+        <SuggestionsList>
+          {loading && <LoadingMessage>Searching...</LoadingMessage>}
+          {error && <ErrorMessage>{error}</ErrorMessage>}
+          {!loading && !error && suggestions.length === 0 && (
+            <LoadingMessage>No products found</LoadingMessage>
+          )}
+          {suggestions.map((product) => (
+            <SuggestionItem
+              key={product.id}
+              // onClick={() => handleSuggestionClick(product)}
+              onMouseDown={() => handleSuggestionClick(product)}
+            >
+              <ProductTitle>{product.title}</ProductTitle>
+              <ProductPrice>${product.price}</ProductPrice>
+            </SuggestionItem>
+          ))}
+        </SuggestionsList>
+      )}
+    </SearchContainer>
+  );
+}
+
 const SearchContainer = styled.div`
   position: relative;
   flex: 1;
@@ -106,96 +200,3 @@ const ErrorMessage = styled.div`
   color: #e53e3e;
   text-align: center;
 `;
-
-export default function SearchBar() {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const { query, suggestions, loading, error } = useSelector(
-    (state) => state.category
-  );
-  const [isFocused, setIsFocused] = useState(false);
-  const containerRef = useRef(null);
-  const timeoutRef = useRef(null);
-
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (
-        containerRef.current &&
-        !containerRef.current.contains(event.target)
-      ) {
-        dispatch(clearSuggestions());
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [dispatch]);
-
-  useEffect(() => {
-    if (query.trim().length > 2) {
-      if (timeoutRef.current) clearTimeout(timeoutRef.current);
-      timeoutRef.current = setTimeout(() => {
-        dispatch(fetchSuggestions(query));
-      }, 300);
-    } else {
-      // dispatch(clearSuggestions());
-    }
-
-    return () => {
-      if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    };
-  }, [query, dispatch]);
-
-  const handleSearchChange = (e) => {
-    dispatch(setQuery(e.target.value));
-  };
-
-  const handleClearSearch = () => {
-    dispatch(clearSuggestions());
-  };
-
-  const handleSuggestionClick = (product) => {
-    navigate(`/products/${product.id}`);
-    dispatch(clearSuggestions());
-  };
-
-  return (
-    <SearchContainer ref={containerRef}>
-      <SearchInputWrapper>
-        <Input
-          type="text"
-          placeholder="Search products..."
-          value={query}
-          onChange={handleSearchChange}
-          onFocus={() => setIsFocused(true)}
-        />
-        {query && (
-          <ClearButton onClick={handleClearSearch}>
-            <FaTimes size={14} />
-          </ClearButton>
-        )}
-        <SearchIcon size={18} />
-      </SearchInputWrapper>
-
-      {isFocused && query.length > 0 && (
-        <SuggestionsList>
-          {loading && <LoadingMessage>Searching...</LoadingMessage>}
-          {error && <ErrorMessage>{error}</ErrorMessage>}
-          {!loading && !error && suggestions.length === 0 && (
-            <LoadingMessage>No products found</LoadingMessage>
-          )}
-          {suggestions.map((product) => (
-            <SuggestionItem
-              key={product.id}
-              // onClick={() => handleSuggestionClick(product)}
-              onMouseDown={() => handleSuggestionClick(product)}
-            >
-              <ProductTitle>{product.title}</ProductTitle>
-              <ProductPrice>${product.price}</ProductPrice>
-            </SuggestionItem>
-          ))}
-        </SuggestionsList>
-      )}
-    </SearchContainer>
-  );
-}

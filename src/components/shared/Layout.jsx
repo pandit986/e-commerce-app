@@ -3,17 +3,6 @@ import styled from "styled-components";
 import Header from "./Header";
 import Footer from "./Footer";
 
-const LayoutContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-`;
-
-const MainContent = styled.main`
-  flex: 1;
-  padding: 20px;
-`;
-
 export default function Layout() {
   return (
     <LayoutContainer>
@@ -25,3 +14,14 @@ export default function Layout() {
     </LayoutContainer>
   );
 }
+
+const LayoutContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+`;
+
+const MainContent = styled.main`
+  flex: 1;
+  padding: 20px;
+`;

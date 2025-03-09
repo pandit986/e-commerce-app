@@ -3,6 +3,20 @@ import styled from "styled-components";
 import { FaArrowRight } from "react-icons/fa";
 import Button from "../../../components/ui/Button";
 
+export default function CategoryCard({ category, count, thumbnail }) {
+  return (
+    <CardContainer to={`/products/${category}`} $thumbnail={thumbnail}>
+      <Content>
+        <Title>{category}</Title>
+        <ProductCount>{count} products</ProductCount>
+        <ButtonWrapper>
+          <Button icon={<FaArrowRight />} text="Shop Now" bgColor="#007BFF" />
+        </ButtonWrapper>
+      </Content>
+    </CardContainer>
+  );
+}
+
 const CardContainer = styled(Link)`
   position: relative;
   border-radius: 16px;
@@ -64,17 +78,3 @@ const ProductCount = styled.span`
 const ButtonWrapper = styled.div`
   margin-top: 1rem;
 `;
-
-export default function CategoryCard({ category, count, thumbnail }) {
-  return (
-    <CardContainer to={`/products/${category}`} $thumbnail={thumbnail}>
-      <Content>
-        <Title>{category}</Title>
-        <ProductCount>{count} products</ProductCount>
-        <ButtonWrapper>
-          <Button icon={<FaArrowRight />} text="Shop Now" bgColor="#007BFF" />
-        </ButtonWrapper>
-      </Content>
-    </CardContainer>
-  );
-}
