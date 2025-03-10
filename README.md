@@ -16,6 +16,9 @@ git clone https://github.com/pandit986/e-commerce-app.git
 npm run dev
 ```
 
+# 🌍 Live Demo
+- Live URL: [E-Commerce App](https://e-commerce-app-teal-chi.vercel.app/)
+
 ## A e-commerce platform built with:
 - ⚛️ React + Vite
 - 🛣️ React Router v6
