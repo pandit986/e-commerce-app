@@ -4,7 +4,6 @@ import { addToCart, setQuantity } from "../action/productSlice";
 import { FaShoppingCart } from "react-icons/fa";
 import Button from "../../../components/ui/Button";
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 export default function ProductCard({ product }) {
   const dispatch = useDispatch();

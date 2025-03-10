@@ -82,15 +82,14 @@ export default function SearchBar() {
 
       {isFocused && query.length > 0 && (
         <SuggestionsList>
-          {loading && <LoadingMessage>Searching...</LoadingMessage>}
-          {error && <ErrorMessage>{error}</ErrorMessage>}
+          {!!loading && <LoadingMessage>Searching...</LoadingMessage>}
+          {!!error && <ErrorMessage>{error}</ErrorMessage>}
           {!loading && !error && suggestions.length === 0 && (
             <LoadingMessage>No products found</LoadingMessage>
           )}
           {suggestions.map((product) => (
             <SuggestionItem
               key={product.id}
-              // onClick={() => handleSuggestionClick(product)}
               onMouseDown={() => handleSuggestionClick(product)}
             >
               <ProductTitle>{product.title}</ProductTitle>
