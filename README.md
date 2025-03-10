@@ -72,3 +72,14 @@ npm run dev
  
 5. Error Handling
 - Error Boundaries: Integrated error boundary components to catch and gracefully handle unexpected errors in the UI, ensuring a better user experience even when parts of the application fail.
+
+
+## 📸 Screenshots
+
+| Feature | Preview |
+|---------|---------|
+| **Home Page** | ![Home Page](./screenshots/HomePage.png) |
+| **Product Listing** | ![Product Listing](./screenshots//ProductListing.png) |
+| **Shopping Cart** | ![Cart Page](./screenshots/Cart%20Page.png) |
+| **Error Handling** | ![Error Boundary](docs/screenshots/error-boundary.png) |
+| **Search Feature** | ![Search Suggestions](./screenshots/SearchSuggestions.png) |
