@@ -81,5 +81,6 @@ npm run dev
 | **Home Page** | ![Home Page](./screenshots/HomePage.png) |
 | **Product Listing** | ![Product Listing](./screenshots//ProductListing.png) |
 | **Shopping Cart** | ![Cart Page](./screenshots/Cart%20Page.png) |
-| **Error Handling** | ![Error Boundary](docs/screenshots/error-boundary.png) |
+
 | **Search Feature** | ![Search Suggestions](./screenshots/SearchSuggestions.png) |
+| **Toast Notifications** | ![Toast Notifications](./screenshots/ToastNotifications.png) |

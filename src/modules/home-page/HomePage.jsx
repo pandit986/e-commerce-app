@@ -19,7 +19,6 @@ export default function HomePage() {
     dispatch(fetchCategories());
   }, [dispatch]);
 
-  // if (loading) return ;
 
   return (
     <Container>
